@@ -1,0 +1,23 @@
+#!/bin/bash
+
+
+# First-- upload a file to bucket:
+
+curl 
+https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/1200px-Firefox_logo%2C_2019.svg.png 
+> firefox_logo.png
+
+aws s3 cp firefox_logo.png s3://ds2002-ktq3td/
+
+
+# Second-- presign a URL to that file w/ expiration:
+
+https://s3.amazonaws.com/ds2002-ktq3td/firefox_logo.png
+
+aws s3 presign --expires-in 604800 s3://ds2002-ktq3td/firefox_logo.png
+
+
+# Presigned URL: 
+
+https://ds2002-ktq3td.s3.us-east-1.amazonaws.com/firefox_logo.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA6ODU2ZTLCIAC7LBH%2F20240312%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240312T182622Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Security-Token=FwoGZXIvYXdzEFQaDHrlGIrgxjU2139OzCLEAWr8rSmccJjIj4UuD1viIcDlbEs67O5HWM6wZxgR%2BI3mA3y%2Bre94whBJ%2FWDy%2FqlCXVPpwC2yqGOTdRzlcY6isJX6x%2BD6gQC18TTxS%2FjEOjkgqhm%2FGrLFLYLPCfS%2B%2Bxpn2wUgLX%2BzVdm7J0veoVdjfvlOKXZ%2FTZcITTSz4EIIPUW0z10RRVakdPj7POG3hOx8jYZypflYXcSsNiQg3Qt5eH%2BN4mF2xBjU%2BNRIlgQXuK3E1cI2g4YZyHqDtbz12l%2B4yZKhqAooz7PCrwYyLUUcNZzwxlOv2TLPXw2WQNCVDRW%2B5gXzsW4ZKMByYosUdTxFdi5AbZfH7q2jiA%3D%3D&X-Amz-Signature=477a37cac9fb5f05c181033620dfe8a00e8f3801aafb2cc76bf6eabb78c95645
+

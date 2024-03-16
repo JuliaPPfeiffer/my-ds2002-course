@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+
+import boto3
+import requests
+
+def create_presigned_url(bucket_name, object_name, expiration=3600):
+    s3 = boto3.client('s3')
+    response = s3.generate_presigned_url('get_object',
+                                                    Params={'Bucket': 
+bucket_name,
+                                                            'Key': 
+object_name},
+                                                    ExpiresIn=expiration)
+    print(response)
+    return response
+
+
+url = create_presigned_url('ds2002-ktq3td', 
+'https://cdn.vox-cdn.com/thumbor/a5EcHSnHLRfQyzSFvhmPSnibCq0=/0x0:420x314/1400x1400/filters:focal(136x115:202x181):format(gif)/cdn.vox-cdn.com/uploads/chorus_image/image/55279403/tenor.0.gif')
+if url is not None:
+    resp = requests.get(url)
+
+#presigned url:
+https://ds2002-ktq3td.s3.amazonaws.com/https%3A//cdn.vox-cdn.com/thumbor/a5EcHSnHLRfQyzSFvhmPSnibCq0%3D/0x0%3A420x314/1400x1400/filters%3Afocal%28136x115%3A202x181%29%3Aformat%28gif%29/cdn.vox-cdn.com/uploads/chorus_image/image/55279403/tenor.0.gif?AWSAccessKeyId=ASIA6ODU2ZTLHBD67PCH&Signature=H2NEPkqCWiYg8sl%2BaMKXlKpTlOk%3D&x-amz-security-token=FwoGZXIvYXdzEKP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDMr5FZz%2FSDKYMHm3nSLEAUG9Y%2B5wkx%2FUCpc4xx%2Fmwd%2BFVXmvZgt1Nuw4Fj5SJ36%2B2EllNrP2qWFRDeXdRrl2G5zvo8sWdWS1PClDCy163Fy0dKSm35Jsm2fImfPUhTUbku2iF1JB7jICSPqy3bj%2F%2BtGTPd%2BODSk3ssXQrraKykLQrIhg5xaqLoc8A0MvkKkS7%2FAW30vKykXTDeZO79WTvV3Mbd5sJdqWqyVBbHLkqK7Df7Cuc6GHQnuVXgshBFQiNdO%2BWf55F8%2F8%2BuX0YM8eB9dWYOMo6%2BPTrwYyLSdXMDxO7xyt1akoE1WP3JHQAmJs0bwOgPVHYNjlzr%2B7M7wqYnFJiebQSmrzxA%3D%3D&Expires=1710564108
